@@ -285,16 +285,162 @@
   #lightbox .cap{ position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--muted-fg); font-size:11.5px; }
 
   code.k{ color:var(--accent); }
+
+  /* ---------- tech scatter background (scattered tool/software labels) ---------- */
+  .tech-scatter{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .tech-scatter span{
+    position:absolute;
+    font-family:var(--font-body);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    white-space:nowrap;
+    color:var(--accent);
+    opacity:.055;
+  }
+  .tech-scatter span:nth-child(odd){ color:var(--accent-3); }
+  .tech-scatter span:nth-child(3n){ color:var(--accent-2); }
+
+  /* ---------- header boost: cyberpunk-forward hero ---------- */
+  .header-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap; }
+  .berkeley-logo{ flex:none; width:150px; margin-top:4px; opacity:.92; filter:drop-shadow(0 0 12px rgba(255,196,0,.3)); }
+  .berkeley-logo img{ width:100%; display:block; }
+  @media (max-width:700px){ .berkeley-logo{ width:110px; } }
+
+  .eyebrow .cursor{ display:inline-block; animation: blink 1s step-end infinite; }
+
+  h1.glitch{ position:relative; }
+  h1.glitch::before, h1.glitch::after{
+    content:attr(data-text);
+    position:absolute; left:0; top:0; width:100%; height:100%;
+    overflow:hidden; color:var(--foreground);
+    background:transparent;
+    clip-path: inset(0 0 0 0);
+  }
+  h1.glitch::before{
+    color:var(--accent-2);
+    animation: glitch-1 6s infinite linear;
+    z-index:-1;
+  }
+  h1.glitch::after{
+    color:var(--accent-3);
+    animation: glitch-2 6.5s infinite linear;
+    z-index:-1;
+  }
+  @keyframes glitch-1{
+    0%, 92%, 100%{ clip-path: inset(0 0 100% 0); transform:translate(0,0); }
+    92.5%{ clip-path: inset(10% 0 60% 0); transform:translate(-2px,0); }
+    93.5%{ clip-path: inset(40% 0 20% 0); transform:translate(2px,0); }
+    94.5%{ clip-path: inset(70% 0 5% 0); transform:translate(-1px,0); }
+    95.5%{ clip-path: inset(0 0 100% 0); transform:translate(0,0); }
+  }
+  @keyframes glitch-2{
+    0%, 90%, 100%{ clip-path: inset(0 0 100% 0); transform:translate(0,0); }
+    90.5%{ clip-path: inset(55% 0 10% 0); transform:translate(2px,0); }
+    91.5%{ clip-path: inset(15% 0 65% 0); transform:translate(-2px,0); }
+    92.5%{ clip-path: inset(0 0 100% 0); transform:translate(0,0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    h1.glitch::before, h1.glitch::after{ animation:none; display:none; }
+    .eyebrow .cursor{ animation:none; }
+  }
+
+  nav.jumpnav{ box-shadow: 0 0 14px rgba(0,255,136,.08); }
+
+  /* ---------- org logo chips (experience + project attribution) ---------- */
+  .org-logo{
+    width:38px; height:38px; flex:none; position:relative;
+    border:1px solid var(--border); background:#f4f4f2;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    padding:5px;
+  }
+  .org-logo img{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
+  .org-logo .fallback-text{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    font-family:var(--font-head); font-weight:800; font-size:11px; color:var(--accent); background:var(--muted);
+  }
+  .org-logo img.broken{ display:none; }
+  .org-logo img.broken ~ .fallback-text{ display:flex; }
+
+  .card-tag-row{ display:flex; align-items:center; gap:10px; margin-bottom:9px; }
+  .card-tag-row .org-logo{ width:30px; height:30px; padding:4px; }
+  .card-tag-row .card-tag{ margin-bottom:0; }
+
+  /* ---------- gallery: hero + filmstrip (bigger, clearly expandable) ---------- */
+  .gallery-hero{
+    position:relative; overflow:hidden; cursor:zoom-in;
+  }
+  .gallery-hero img{
+    width:100%; height:300px; object-fit:cover; display:block;
+    filter:saturate(.95) contrast(1.03);
+    transition: filter .2s, transform .3s;
+  }
+  .gallery-hero:hover img{ filter:saturate(1.08) contrast(1.06) brightness(1.03); transform:scale(1.015); }
+  .gallery-hero .expand-tag{
+    position:absolute; right:10px; bottom:10px;
+    font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    background:rgba(5,5,8,.72); border:1px solid var(--accent); color:var(--accent);
+    padding:5px 10px; display:flex; align-items:center; gap:6px;
+    opacity:0; transition:opacity .2s;
+  }
+  .gallery-hero:hover .expand-tag{ opacity:1; }
+  @media (max-width:640px){ .gallery-hero .expand-tag{ opacity:1; } .gallery-hero img{ height:220px; } }
+
+  .gallery-strip{ display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-top:4px; }
+  .gallery-strip.n4{ grid-template-columns:repeat(4,1fr); }
+  .gallery-strip img{
+    width:100%; height:130px; object-fit:cover; display:block; cursor:zoom-in;
+    filter:saturate(.95) contrast(1.03);
+    transition: filter .15s, transform .2s;
+  }
+  .gallery-strip img:hover{ filter:saturate(1.1) contrast(1.08) brightness(1.05); transform:scale(1.02); }
+  @media (max-width:640px){ .gallery-strip{ grid-template-columns:repeat(3,1fr); } .gallery-strip img{ height:100px; } }
+
+  .gallery-strip .placeholder{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    height:130px; background:var(--muted); color:var(--muted-fg); font-size:9.5px;
+    border:1px dashed var(--border); padding:4px; line-height:1.3;
+  }
+  .placeholder{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    background:var(--muted); color:var(--muted-fg); font-size:11px;
+    border:1px dashed var(--border); padding:14px; line-height:1.5;
+  }
 </style>
 </head>
 <body>
 <div class="circuit-bg"></div>
+<div class="tech-scatter" aria-hidden="true">
+  <span style="top:8%; left:4%; font-size:12px; transform:rotate(-6deg);">SolidWorks</span>
+  <span style="top:14%; left:82%; font-size:11px; transform:rotate(4deg);">MSC Adams</span>
+  <span style="top:22%; left:35%; font-size:13px; transform:rotate(-3deg);">KISSsoft</span>
+  <span style="top:30%; left:63%; font-size:11px; transform:rotate(5deg);">Ansys</span>
+  <span style="top:38%; left:12%; font-size:12px; transform:rotate(2deg);">KiCad</span>
+  <span style="top:46%; left:88%; font-size:11px; transform:rotate(-4deg);">MATLAB</span>
+  <span style="top:54%; left:45%; font-size:12px; transform:rotate(3deg);">Python</span>
+  <span style="top:62%; left:6%; font-size:11px; transform:rotate(-2deg);">SOFA FEM</span>
+  <span style="top:70%; left:74%; font-size:12px; transform:rotate(4deg);">Arduino</span>
+  <span style="top:78%; left:28%; font-size:11px; transform:rotate(-5deg);">Simulink</span>
+  <span style="top:86%; left:56%; font-size:12px; transform:rotate(2deg);">Isaac Sim</span>
+  <span style="top:92%; left:16%; font-size:11px; transform:rotate(-3deg);">LabVIEW</span>
+  <span style="top:4%; left:55%; font-size:11px; transform:rotate(3deg);">Creo</span>
+  <span style="top:96%; left:80%; font-size:11px; transform:rotate(-4deg);">Git</span>
+</div>
 
 <header>
   <div class="wrap">
-    <p class="eyebrow">robotics_&amp;_mechanical_engineer.exe</p>
-    <h1>Aaditya Shrivastava</h1>
-    <p class="role-line"><strong>Robot Hardware · Electromechanical Integration · Simulation &amp; Digital Twins</strong> — MEng, UC Berkeley</p>
+    <div class="header-top">
+      <div>
+        <p class="eyebrow">robotics_&amp;_mechanical_engineer.exe<span class="cursor">_</span></p>
+        <h1 class="glitch" data-text="Aaditya Shrivastava">Aaditya Shrivastava</h1>
+        <p class="role-line"><strong>Robot Hardware · Electromechanical Integration · Simulation &amp; Digital Twins</strong> — MEng, UC Berkeley</p>
+      </div>
+      <a class="berkeley-logo" href="https://www.berkeley.edu" target="_blank" rel="noopener" title="UC Berkeley">
+        <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley">
+      </a>
+    </div>
 
     <div class="contact-bar">
       <span class="pill accent">📍 Bay Area, CA (Berkeley) — open to relocation &amp; travel</span>
@@ -336,8 +482,11 @@
 
       <!-- Soft Robotics -->
       <div class="card chamfer">
-        <div class="mosaic n3">
+        <div class="gallery-hero">
           <img src="./assets/soft/prototype-full.jpg" alt="Soft robotic arm tabletop prototype" data-cap="Tabletop prototype — 5-segment cable-driven soft arm, ARMS Lab IIT Bombay" loading="lazy">
+          <span class="expand-tag">🔍 click to expand</span>
+        </div>
+        <div class="gallery-strip">
           <img src="./assets/soft/bending-action.jpg" alt="Soft arm bending in action" data-cap="Physical model actuated via cable tensioning — 'C' shaped bending" loading="lazy">
           <img src="./assets/soft/mocap-setup.jpg" alt="Qualisys motion capture setup" data-cap="Qualisys Arqus 15-camera motion capture validation setup" loading="lazy">
           <img src="./assets/soft/pulley-cad.jpg" alt="Double pulley CAD mechanism" data-cap="CAD: double-pulley cable-drive mechanism supporting the arm" loading="lazy">
@@ -345,7 +494,13 @@
           <img src="./assets/soft/headphone-grip.jpg" alt="Granular gripper lifting a headphone" data-cap="Granular jamming gripper proof-of-concept — lifting a headphone via manual vacuum" loading="lazy">
         </div>
         <div class="card-body">
-          <span class="card-tag">ARMS Lab · IIT Bombay (SYSCON)</span>
+          <div class="card-tag-row">
+            <div class="org-logo">
+              <img src="https://www.google.com/s2/favicons?sz=128&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
+              <span class="fallback-text">IITB</span>
+            </div>
+            <span class="card-tag">ARMS Lab · IIT Bombay (SYSCON)</span>
+          </div>
           <h3>Soft Robotic Manipulator &amp; Granular Gripper</h3>
           <p class="meta">Soft Robotics Research Intern · Jan – May 2025 · Advisors: Dr. Arpita Sinha, Dr. Anirban Guha</p>
           <ul>
@@ -359,8 +514,11 @@
 
       <!-- Tata -->
       <div class="card chamfer">
-        <div class="mosaic">
+        <div class="gallery-hero">
           <img src="./assets/tata/adams-1.jpg" alt="MSC Adams robotic arm simulation" data-cap="MSC Adams multibody dynamics — 4DOF loading arm with parallel gripper" loading="lazy">
+          <span class="expand-tag">🔍 click to expand</span>
+        </div>
+        <div class="gallery-strip">
           <img src="./assets/tata/adams-3.jpg" alt="MSC Adams robotic arm palletizing" data-cap="Adams simulation — palletizing task trajectory" loading="lazy">
           <img src="./assets/tata/gear-3d.jpg" alt="KISSsoft 3D gear render" data-cap="KISSsoft/KISSsys gear-train design — worm &amp; gear enveloping model" loading="lazy">
           <img src="./assets/tata/simulink-cosim.png" alt="Adams-Simulink co-simulation block diagram" data-cap="MSC Adams ↔ MATLAB Simulink co-simulation control architecture" loading="lazy">
@@ -368,7 +526,13 @@
           <img src="./assets/tata/suspension-diagram.png" alt="Suspension static force analysis diagram" data-cap="Kaller Hydrop suspension static force analysis — nominal condition" loading="lazy">
         </div>
         <div class="card-body">
-          <span class="card-tag">Tata Advanced Systems Ltd</span>
+          <div class="card-tag-row">
+            <div class="org-logo">
+              <img src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
+              <span class="fallback-text">TATA</span>
+            </div>
+            <span class="card-tag">Tata Advanced Systems Ltd</span>
+          </div>
           <h3>Industrial Robotic Arm Simulation &amp; Load Integration</h3>
           <p class="meta">Mechanical Design Intern · Jun – Jul 2023</p>
           <ul>
@@ -382,11 +546,18 @@
 
       <!-- WMR -->
       <div class="card chamfer" style="grid-column:1 / -1;">
-        <div class="mosaic n3">
-          <img src="./assets/wmr/RobotImage1.jpg" alt="Wheeled mobile robot prototype" data-cap="Wheeled mobile robot — UC Berkeley hospital delivery capstone, Prof. H. Kazerooni" loading="lazy">
+        <div class="gallery-hero" id="wmr-hero">
+          <img src="./assets/wmr/RobotImage1.jpg" alt="Wheeled mobile robot prototype" data-cap="Wheeled mobile robot — UC Berkeley hospital delivery capstone, Prof. H. Kazerooni" loading="lazy" onerror="wmrFallback(this)">
+          <span class="expand-tag">🔍 click to expand</span>
         </div>
         <div class="card-body">
-          <span class="card-tag">UC Berkeley Capstone · Prof. H. Kazerooni</span>
+          <div class="card-tag-row">
+            <div class="org-logo">
+              <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" style="filter:invert(1) grayscale(1) brightness(.3);" onerror="this.classList.add('broken')">
+              <span class="fallback-text">UCB</span>
+            </div>
+            <span class="card-tag">UC Berkeley Capstone · Prof. H. Kazerooni</span>
+          </div>
           <h3>Wheeled Mobile Robot for Hospitals</h3>
           <p class="meta">Sept 2025 – May 2026</p>
           <ul>
@@ -502,19 +673,28 @@
     <div class="exp-list">
 
       <div class="exp-row">
-        <div class="exp-logo">UCB</div>
+        <div class="org-logo exp-logo">
+          <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" style="filter:invert(1) grayscale(1) brightness(.3);" onerror="this.classList.add('broken')">
+          <span class="fallback-text">UCB</span>
+        </div>
         <div class="exp-main"><span class="exp-title">Wheeled Mobile Robots for Hospitals</span><span class="exp-org">— UC Berkeley Capstone, Prof. H. Kazerooni</span></div>
         <div class="exp-dates">Sept 2025 – May 2026</div>
       </div>
 
       <div class="exp-row">
-        <div class="exp-logo">SCL</div>
-        <div class="exp-main"><span class="exp-title">Robotics Technology Consultant</span><span class="exp-org">— SCAILAB, Deep Tech Entrepreneurship, UC Berkeley</span></div>
+        <div class="org-logo exp-logo">
+          <img src="https://www.google.com/s2/favicons?sz=128&domain=scailab.se" alt="SCAILAB" onerror="this.classList.add('broken')">
+          <span class="fallback-text">SCL</span>
+        </div>
+        <div class="exp-main"><span class="exp-title">Robotics Technology Consultant</span><span class="exp-org">— SCAILAB (scailab.se), Deep Tech Entrepreneurship, UC Berkeley</span></div>
         <div class="exp-dates">Jan – May 2026</div>
       </div>
 
       <div class="exp-row">
-        <div class="exp-logo">ME2</div>
+        <div class="org-logo exp-logo">
+          <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" style="filter:invert(1) grayscale(1) brightness(.3);" onerror="this.classList.add('broken')">
+          <span class="fallback-text">ME2</span>
+        </div>
         <div class="exp-main"><span class="exp-title">Multi-Agent Swarm &amp; Fleet Simulations</span><span class="exp-org">— UC Berkeley ME244, Prof. T.I. Zohdi</span></div>
         <div class="exp-dates">Jan – May 2026</div>
       </div>
@@ -526,19 +706,28 @@
       </div>
 
       <div class="exp-row">
-        <div class="exp-logo">ARM</div>
+        <div class="org-logo exp-logo">
+          <img src="https://www.google.com/s2/favicons?sz=128&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
+          <span class="fallback-text">ARM</span>
+        </div>
         <div class="exp-main"><span class="exp-title">Soft Robotics Research Intern</span><span class="exp-org">— ARMS Lab, IIT Bombay (Dr. Arpita Sinha)</span></div>
         <div class="exp-dates">Jan – Jul 2025</div>
       </div>
 
       <div class="exp-row">
-        <div class="exp-logo">MHA</div>
+        <div class="org-logo exp-logo">
+          <img src="https://mahindraaerospace.com/wp-content/uploads/2025/01/mahindra-aerospace-logo_new.png" alt="Mahindra Aerospace" onerror="this.classList.add('broken')">
+          <span class="fallback-text">MHA</span>
+        </div>
         <div class="exp-main"><span class="exp-title">Industrialization Intern</span><span class="exp-org">— Mahindra Aerospace (AS9100, Boeing/Airbus components)</span></div>
         <div class="exp-dates">Jun – Aug 2024</div>
       </div>
 
       <div class="exp-row">
-        <div class="exp-logo">TATA</div>
+        <div class="org-logo exp-logo">
+          <img src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
+          <span class="fallback-text">TATA</span>
+        </div>
         <div class="exp-main"><span class="exp-title">Mechanical Design Intern</span><span class="exp-org">— Tata Advanced Systems Ltd</span></div>
         <div class="exp-dates">Jun – Jul 2023</div>
       </div>
@@ -553,12 +742,24 @@
     </div>
     <div class="edu-grid">
       <div class="edu-card chamfer-sm">
-        <h4>University of California, Berkeley</h4>
+        <div class="card-tag-row">
+          <div class="org-logo">
+            <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" style="filter:invert(1) grayscale(1) brightness(.3);" onerror="this.classList.add('broken')">
+            <span class="fallback-text">UCB</span>
+          </div>
+          <h4 style="margin:0;">University of California, Berkeley</h4>
+        </div>
         <p class="meta">M.Eng, Mechanical Engineering — Control of Robotic &amp; Autonomous Systems · GPA 3.60/4.00 · May 2026</p>
         <p>Robotic Locomotion · Model Predictive Control · Microprocessor-Based Mechanical Systems · Modelling, Simulation &amp; Digital Twins</p>
       </div>
       <div class="edu-card chamfer-sm">
-        <h4>K.J. Somaiya College of Engineering</h4>
+        <div class="card-tag-row">
+          <div class="org-logo">
+            <img src="https://www.google.com/s2/favicons?sz=128&domain=kjsce.somaiya.edu" alt="K.J. Somaiya College of Engineering" onerror="this.classList.add('broken')">
+            <span class="fallback-text">KJS</span>
+          </div>
+          <h4 style="margin:0;">K.J. Somaiya College of Engineering</h4>
+        </div>
         <p class="meta">B.Tech, Mechanical Engineering · GPA 9.64/10.00 · Jun 2025</p>
         <p>Finite Element Modelling · Computer Aided Engineering · Mechatronics · Theory of Design · Automation</p>
       </div>
@@ -630,11 +831,19 @@
 </div>
 
 <script>
+  // WMR image fallback — shown if the file isn't found at ./assets/wmr/RobotImage1.jpg
+  function wmrFallback(imgEl){
+    const holder = imgEl.closest('.gallery-hero');
+    if(!holder) return;
+    holder.style.cursor = 'default';
+    holder.innerHTML = '<div class="placeholder" style="height:240px;">Wheeled Mobile Robot photo not found at <code class="k">assets/wmr/RobotImage1.jpg</code> — check the exact filename/case was pushed to your repo.</div>';
+  }
+
   // lightbox
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
   const lbCap = document.getElementById('lightbox-cap');
-  document.querySelectorAll('.mosaic img').forEach(img=>{
+  document.querySelectorAll('.gallery-hero img, .gallery-strip img').forEach(img=>{
     img.addEventListener('click', ()=>{
       lbImg.src = img.src;
       lbCap.textContent = img.getAttribute('data-cap') || img.alt || '';
@@ -654,3 +863,8 @@
     navLinks[idx].classList.add('active');
   };
   document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+
+</body>
+</html>
