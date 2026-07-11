@@ -349,24 +349,49 @@
 
   nav.jumpnav{ box-shadow: 0 0 14px rgba(0,255,136,.08); }
 
-  /* ---------- org logo chips (experience + project attribution) ---------- */
+  /* ---------- org logos: free-floating, no box, glow-highlighted ---------- */
   .org-logo{
-    width:38px; height:38px; flex:none; position:relative;
-    border:1px solid var(--border); background:#f4f4f2;
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-    padding:5px;
+    width:62px !important; height:62px !important; flex:none; position:relative;
+    display:flex; align-items:center; justify-content:center; overflow:visible;
+    border:none !important; background:none !important; padding:0 !important;
   }
-  .org-logo img{ max-width:100%; max-height:100%; object-fit:contain; display:block; }
+  .org-logo::before{
+    content:""; position:absolute; inset:-14px; z-index:-1;
+    background:radial-gradient(circle, rgba(0,255,136,.16), transparent 72%);
+    filter:blur(2px);
+  }
+  .org-logo img{
+    max-width:100%; max-height:100%; object-fit:contain; display:block;
+    filter:drop-shadow(0 0 8px rgba(0,255,136,.35)) drop-shadow(0 0 2px rgba(0,255,136,.2));
+  }
+  .org-logo img.knockout{ mix-blend-mode:multiply; }
   .org-logo .fallback-text{
     position:absolute; inset:0; display:none; align-items:center; justify-content:center;
-    font-family:var(--font-head); font-weight:800; font-size:11px; color:var(--accent); background:var(--muted);
+    font-family:var(--font-head); font-weight:800; font-size:11px; letter-spacing:.06em; color:var(--accent);
+    text-shadow:0 0 8px rgba(0,255,136,.5);
   }
   .org-logo img.broken{ display:none; }
   .org-logo img.broken ~ .fallback-text{ display:flex; }
 
-  .card-tag-row{ display:flex; align-items:center; gap:10px; margin-bottom:9px; }
-  .card-tag-row .org-logo{ width:30px; height:30px; padding:4px; }
+  .card-tag-row{ display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+  .card-tag-row .org-logo{ width:52px; height:52px; }
   .card-tag-row .card-tag{ margin-bottom:0; }
+
+  /* ---------- header logo strip (free-floating, larger) ---------- */
+  .header-logos{ display:flex; align-items:center; gap:26px; flex-wrap:wrap; margin-top:6px; }
+  .header-logos a{ display:block; position:relative; }
+  .header-logos a::before{
+    content:""; position:absolute; inset:-12px; z-index:-1;
+    background:radial-gradient(circle, rgba(0,255,136,.14), transparent 70%);
+  }
+  .header-logos img{
+    height:52px; width:auto; max-width:140px; object-fit:contain; display:block;
+    filter:drop-shadow(0 0 10px rgba(0,255,136,.3));
+    opacity:.95; transition:opacity .2s, filter .2s;
+  }
+  .header-logos img.knockout{ mix-blend-mode:multiply; }
+  .header-logos a:hover img{ opacity:1; filter:drop-shadow(0 0 16px rgba(0,255,136,.5)); }
+  @media (max-width:700px){ .header-logos img{ height:38px; } .header-logos{ gap:16px; } }
 
   /* ---------- gallery: hero + filmstrip (bigger, clearly expandable) ---------- */
   .gallery-hero{
@@ -437,9 +462,23 @@
         <h1 class="glitch" data-text="Aaditya Shrivastava">Aaditya Shrivastava</h1>
         <p class="role-line"><strong>Robot Hardware · Electromechanical Integration · Simulation &amp; Digital Twins</strong> — MEng, UC Berkeley</p>
       </div>
-      <a class="berkeley-logo" href="https://www.berkeley.edu" target="_blank" rel="noopener" title="UC Berkeley">
-        <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley">
-      </a>
+      <div class="header-logos">
+        <a href="https://www.berkeley.edu" target="_blank" rel="noopener" title="UC Berkeley">
+          <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley">
+        </a>
+        <a href="https://scailab.se" target="_blank" rel="noopener" title="SCAILAB">
+          <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=scailab.se" alt="SCAILAB">
+        </a>
+        <a href="https://mahindraaerospace.com" target="_blank" rel="noopener" title="Mahindra Aerospace">
+          <img class="knockout" src="https://mahindraaerospace.com/wp-content/uploads/2025/01/mahindra-aerospace-logo_new.png" alt="Mahindra Aerospace">
+        </a>
+        <a href="https://www.tataadvancedsystems.com" target="_blank" rel="noopener" title="Tata Advanced Systems">
+          <img class="knockout" src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems">
+        </a>
+        <a href="https://www.iitb.ac.in" target="_blank" rel="noopener" title="IIT Bombay">
+          <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=iitb.ac.in" alt="IIT Bombay">
+        </a>
+      </div>
     </div>
 
     <div class="contact-bar">
@@ -496,7 +535,7 @@
         <div class="card-body">
           <div class="card-tag-row">
             <div class="org-logo">
-              <img src="https://www.google.com/s2/favicons?sz=128&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
+              <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
               <span class="fallback-text">IITB</span>
             </div>
             <span class="card-tag">ARMS Lab · IIT Bombay (SYSCON)</span>
@@ -504,10 +543,10 @@
           <h3>Soft Robotic Manipulator &amp; Granular Gripper</h3>
           <p class="meta">Soft Robotics Research Intern · Jan – May 2025 · Advisors: Dr. Arpita Sinha, Dr. Anirban Guha</p>
           <ul>
-            <li>Designed &amp; fabricated a 5-segment cable/tendon-driven compliant arm (PLA endplates + flexure wings) for contact-rich manipulation</li>
-            <li>Novel <strong>Exponential Bending Distribution Model</strong> (k*=2.3, test MSE 0.0138) — 3× more accurate than a neural-network benchmark, validated via 15-camera Qualisys motion capture</li>
-            <li>Built &amp; characterized a granular-jamming gripper (white peas, ~2.9N holding force, MATLAB force modelling)</li>
-            <li>SOFA FEM simulation for flexure stress screening pre-fabrication</li>
+            <li><strong>Hardware:</strong> Designed &amp; fabricated a 5-segment cable/tendon-driven compliant arm (PLA endplates + flexure wings) for contact-rich manipulation</li>
+            <li><strong>Kinematic Model:</strong> Novel Exponential Bending Distribution Model (k*=2.3, test MSE 0.0138) — 3× more accurate than a neural-network benchmark, validated via 15-camera Qualisys motion capture</li>
+            <li><strong>Gripper:</strong> Built &amp; characterized a granular-jamming gripper (white peas, ~2.9N holding force, MATLAB force modelling)</li>
+            <li><strong>Simulation:</strong> SOFA FEM simulation for flexure stress screening pre-fabrication</li>
           </ul>
         </div>
       </div>
@@ -528,7 +567,7 @@
         <div class="card-body">
           <div class="card-tag-row">
             <div class="org-logo">
-              <img src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
+              <img class="knockout" src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
               <span class="fallback-text">TATA</span>
             </div>
             <span class="card-tag">Tata Advanced Systems Ltd</span>
@@ -536,10 +575,10 @@
           <h3>Industrial Robotic Arm Simulation &amp; Load Integration</h3>
           <p class="meta">Mechanical Design Intern · Jun – Jul 2023</p>
           <ul>
-            <li>Built MSC Adams multibody-dynamics model of a 4DOF robotic loading arm (reduced-order, NDA-safe) with parallel gripper for artillery shell palletizing</li>
-            <li>KISSsoft/KISSsys gear-train specification: tooth geometry optimization &amp; load-capacity analysis for high-torque drivetrain</li>
-            <li>MSC Adams ↔ Simulink co-simulation for control-logic validation</li>
-            <li>Static force analysis of the vehicle suspension (nominal / bump / rebound) mounting the loading system</li>
+            <li><strong>Multibody Dynamics:</strong> Built MSC Adams model of a 4DOF robotic loading arm (reduced-order, NDA-safe) with parallel gripper for artillery shell palletizing</li>
+            <li><strong>Drivetrain:</strong> KISSsoft/KISSsys gear-train specification — tooth geometry optimization &amp; load-capacity analysis for high-torque drivetrain</li>
+            <li><strong>Co-Simulation:</strong> MSC Adams ↔ Simulink integration for control-logic validation</li>
+            <li><strong>Suspension Analysis:</strong> Static force analysis of the vehicle suspension (nominal / bump / rebound) mounting the loading system</li>
           </ul>
         </div>
       </div>
@@ -547,13 +586,13 @@
       <!-- WMR -->
       <div class="card chamfer" style="grid-column:1 / -1;">
         <div class="gallery-hero" id="wmr-hero">
-          <img src="./assets/wmr/RobotImage1.jpg" alt="Wheeled mobile robot prototype" data-cap="Wheeled mobile robot — UC Berkeley hospital delivery capstone, Prof. H. Kazerooni" loading="lazy" onerror="wmrFallback(this)">
+          <img src="./assets/RobotImage1.jpg" alt="Wheeled mobile robot prototype" data-cap="Wheeled mobile robot — UC Berkeley hospital delivery capstone, Prof. H. Kazerooni" loading="lazy" onerror="wmrFallback(this)">
           <span class="expand-tag">🔍 click to expand</span>
         </div>
         <div class="card-body">
           <div class="card-tag-row">
             <div class="org-logo">
-              <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" style="filter:invert(1) grayscale(1) brightness(.3);" onerror="this.classList.add('broken')">
+              <img src="https://www.berkeley.edu/wp-content/themes/berkeleygateway/img/logo-berkeley-gold.svg" alt="UC Berkeley" onerror="this.classList.add('broken')">
               <span class="fallback-text">UCB</span>
             </div>
             <span class="card-tag">UC Berkeley Capstone · Prof. H. Kazerooni</span>
@@ -561,9 +600,9 @@
           <h3>Wheeled Mobile Robot for Hospitals</h3>
           <p class="meta">Sept 2025 – May 2026</p>
           <ul>
-            <li>Owned the full mechatronics stack of a last-mile hospital delivery robot: SolidWorks assemblies &amp; GD&amp;T drawings</li>
-            <li>Custom PCB design (KiCad); HV/LV wiring architecture; motor driver, encoder &amp; camera integration</li>
-            <li>Embedded firmware, system-level bring-up &amp; validation; resolved cross-system (mechanical/electrical/firmware) failures during commissioning</li>
+            <li><strong>Mechanical:</strong> Owned the full mechatronics stack of a last-mile hospital delivery robot — SolidWorks assemblies &amp; GD&amp;T drawings</li>
+            <li><strong>Electronics:</strong> Custom PCB design (KiCad); HV/LV wiring architecture; motor driver, encoder &amp; camera integration</li>
+            <li><strong>Firmware &amp; Bring-Up:</strong> Embedded firmware, system-level bring-up &amp; validation; resolved cross-system (mechanical/electrical/firmware) failures during commissioning</li>
           </ul>
         </div>
       </div>
@@ -588,7 +627,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>GA Optimization</span><span>Swarm</span></div>
           <h3>Aerial Firefighting Swarm Sim</h3>
-          <p>UC Berkeley ME244 (Prof. T.I. Zohdi) — GA-optimized 12-parameter retardant drop; ~88.7% coverage, surrogate ML cut eval calls 60%.</p>
+          <p><strong>Course Project:</strong> UC Berkeley ME244 (Prof. T.I. Zohdi) — GA-optimized 12-parameter retardant drop; ~88.7% coverage, surrogate ML cut eval calls 60%.</p>
           <div class="links"><a href="https://github.com/t-rexx1/Aerial-Firefighting-Swarm-Drones-" target="_blank" rel="noopener">GitHub →</a></div>
         </div>
       </div>
@@ -601,7 +640,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>Digital Twin</span><span>GA Optimization</span></div>
           <h3>Autonomous Security Fleet Digital Twin</h3>
-          <p>5-unit campus patrol fleet digital twin; GA-optimized patrol routes with disruption recovery — coverage ramps 3% → 70%.</p>
+          <p><strong>Independent Project:</strong> 5-unit campus patrol fleet digital twin; GA-optimized patrol routes with disruption recovery — coverage ramps 3% → 70%.</p>
           <div class="links"><a href="https://github.com/t-rexx1/Autonomous-Security-Fleet-DigiTwin" target="_blank" rel="noopener">GitHub →</a></div>
         </div>
       </div>
@@ -611,7 +650,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>FEM</span><span>Soft-Body</span></div>
           <h3>SOFA Framework FEM Screening</h3>
-          <p>Soft-body FEM simulation (SOFA v24.12) to visualize flexure stress and screen soft-arm designs pre-fabrication.</p>
+          <p><strong>Method:</strong> Soft-body FEM simulation (SOFA v24.12) to visualize flexure stress and screen soft-arm designs pre-fabrication.</p>
         </div>
       </div>
 
@@ -620,7 +659,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>Kinematics</span><span>MATLAB</span></div>
           <h3>Soft-Arm Kinematic Visualization</h3>
-          <p>MATLAB 3D forward-kinematics / IK trajectory visualization of the 5-segment arm under cable actuation (PCC + exponential model).</p>
+          <p><strong>Method:</strong> MATLAB 3D forward-kinematics / IK trajectory visualization of the 5-segment arm under cable actuation (PCC + exponential model).</p>
         </div>
       </div>
 
@@ -629,7 +668,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>Digital Twin</span><span>System ID</span></div>
           <h3>Crop-Field Digital Twin</h3>
-          <p>Nonlinear system identification: GA recovers plant-growth ODE parameters from noisy drone-sensed observations.</p>
+          <p><strong>Approach:</strong> Nonlinear system identification — GA recovers plant-growth ODE parameters from noisy drone-sensed observations.</p>
           <div class="links"><a href="https://github.com/t-rexx1/Crop-Field-Digi-Twin" target="_blank" rel="noopener">GitHub →</a></div>
         </div>
       </div>
@@ -641,7 +680,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>Digital Twin</span><span>RL Env</span></div>
           <h3>Data-Center Thermal Digital Twin</h3>
-          <p>Physics-based thermal model of a 10MW data center; validated to RMSE 4.09°C over 288K points; Gym-style RL env, 3.0% PUE gain.</p>
+          <p><strong>Independent Project:</strong> Physics-based thermal model of a 10MW data center; validated to RMSE 4.09°C over 288K points; Gym-style RL env, 3.0% PUE gain.</p>
           <div class="links"><a href="https://github.com/t-rexx1/NovaCool_DigiTwin" target="_blank" rel="noopener">GitHub →</a></div>
         </div>
       </div>
@@ -653,7 +692,7 @@
         <div class="sim-body">
           <div class="sim-tags"><span>Multi-Agent</span><span>Live Dashboard</span></div>
           <h3>Robotaxi Fleet Simulation</h3>
-          <p>15-agent AV fleet sim — state machines, fault injection, live Plotly/Streamlit dashboard.</p>
+          <p><strong>Independent Project:</strong> 15-agent AV fleet sim — state machines, fault injection, live Plotly/Streamlit dashboard.</p>
           <div class="links">
             <a href="https://github.com/t-rexx1/Robotaxi-fleet-sim" target="_blank" rel="noopener">GitHub →</a>
             <a href="https://robotaxi-fleet-sim.streamlit.app/" target="_blank" rel="noopener">Live Demo →</a>
@@ -683,7 +722,7 @@
 
       <div class="exp-row">
         <div class="org-logo exp-logo">
-          <img src="https://www.google.com/s2/favicons?sz=128&domain=scailab.se" alt="SCAILAB" onerror="this.classList.add('broken')">
+          <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=scailab.se" alt="SCAILAB" onerror="this.classList.add('broken')">
           <span class="fallback-text">SCL</span>
         </div>
         <div class="exp-main"><span class="exp-title">Robotics Technology Consultant</span><span class="exp-org">— SCAILAB (scailab.se), Deep Tech Entrepreneurship, UC Berkeley</span></div>
@@ -707,7 +746,7 @@
 
       <div class="exp-row">
         <div class="org-logo exp-logo">
-          <img src="https://www.google.com/s2/favicons?sz=128&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
+          <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=iitb.ac.in" alt="IIT Bombay" onerror="this.classList.add('broken')">
           <span class="fallback-text">ARM</span>
         </div>
         <div class="exp-main"><span class="exp-title">Soft Robotics Research Intern</span><span class="exp-org">— ARMS Lab, IIT Bombay (Dr. Arpita Sinha)</span></div>
@@ -716,7 +755,7 @@
 
       <div class="exp-row">
         <div class="org-logo exp-logo">
-          <img src="https://mahindraaerospace.com/wp-content/uploads/2025/01/mahindra-aerospace-logo_new.png" alt="Mahindra Aerospace" onerror="this.classList.add('broken')">
+          <img class="knockout" src="https://mahindraaerospace.com/wp-content/uploads/2025/01/mahindra-aerospace-logo_new.png" alt="Mahindra Aerospace" onerror="this.classList.add('broken')">
           <span class="fallback-text">MHA</span>
         </div>
         <div class="exp-main"><span class="exp-title">Industrialization Intern</span><span class="exp-org">— Mahindra Aerospace (AS9100, Boeing/Airbus components)</span></div>
@@ -725,7 +764,7 @@
 
       <div class="exp-row">
         <div class="org-logo exp-logo">
-          <img src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
+          <img class="knockout" src="https://www.tataadvancedsystems.com/website/images/logo.png" alt="Tata Advanced Systems" onerror="this.classList.add('broken')">
           <span class="fallback-text">TATA</span>
         </div>
         <div class="exp-main"><span class="exp-title">Mechanical Design Intern</span><span class="exp-org">— Tata Advanced Systems Ltd</span></div>
@@ -755,7 +794,7 @@
       <div class="edu-card chamfer-sm">
         <div class="card-tag-row">
           <div class="org-logo">
-            <img src="https://www.google.com/s2/favicons?sz=128&domain=kjsce.somaiya.edu" alt="K.J. Somaiya College of Engineering" onerror="this.classList.add('broken')">
+            <img class="knockout" src="https://www.google.com/s2/favicons?sz=256&domain=kjsce.somaiya.edu" alt="K.J. Somaiya College of Engineering" onerror="this.classList.add('broken')">
             <span class="fallback-text">KJS</span>
           </div>
           <h4 style="margin:0;">K.J. Somaiya College of Engineering</h4>
@@ -836,7 +875,7 @@
     const holder = imgEl.closest('.gallery-hero');
     if(!holder) return;
     holder.style.cursor = 'default';
-    holder.innerHTML = '<div class="placeholder" style="height:240px;">Wheeled Mobile Robot photo not found at <code class="k">assets/wmr/RobotImage1.jpg</code> — check the exact filename/case was pushed to your repo.</div>';
+    holder.innerHTML = '<div class="placeholder" style="height:240px;">Wheeled Mobile Robot photo not found at <code class="k">assets/RobotImage1.jpg</code> — check the exact filename/case was pushed to your repo.</div>';
   }
 
   // lightbox
